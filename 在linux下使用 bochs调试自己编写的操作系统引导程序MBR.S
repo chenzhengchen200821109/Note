@@ -9,4 +9,4 @@
 4.去除目标文件mbr.bin中不需要的信息（调试信息，文件头等）：objcopy -S -O binary mbr.bin
 5.将得到的二进制文件mbr.bin复制到虚拟硬盘hd60M.img: dd if=/home/chenzheng/Documents/github-OS/AS/mbr.bin 
                       of=/home/chenzheng/Documents/github-OS/AS/hd60M.img bs=512 count=1 conv=notrunc
-6.运行bochs
+6.运行bochs： bochs -f bochsrc.disk
