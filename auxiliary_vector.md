@@ -1,7 +1,7 @@
 # **What is a auxiliary vector?**  
 auxiliary vector是一种在内核态和用户态交换信息的机制。  
 
-# **Who construct auxiliary vector and where is it？ ** 
+# **Who construct auxiliary vector and where is it？** 
 auxiliary vector由内核的加载器在加载可执行文件时构建，构建后位于进程地址空间的特定位置（environ指针变量之上）  
 ![auxvec](https://github.com/chenzhengchen200821109/Note/blob/master/auxvec.png)  
 
@@ -13,4 +13,11 @@ auxiliary vector由内核的加载器在加载可执行文件时构建，构建�
 5. **AT_PLATFORM**: The value is a pointer to a string identifying the hardware platform on which the program is running.   
 6. **AT_SYSINFO_EHDR**: The value is a pointer to the page containing the Virtual Dynamic Shared Object (VDSO) that the kernel creates in order to provide fast implementations of certain system calls.  
 7. **AT_HWCAP**: The value is a pointer to a multibyte mask of bits whose settings indicate detailed processor capabilities. This information can be used to provide optimized behavior for certain library functions. The contents of the bit mask are hardware dependent (for example, see the kernel source file arch/x86/include/asm/cpufeature.h for details relating to the Intel x86 architecture).  
-8. **AT_RANDOM**: The value is a pointer to sixteen random bytes provided by the kernel. The dynamic linker uses this to implement a stack canary. 
+8. **AT_RANDOM**: The value is a pointer to sixteen random bytes provided by the kernel. The dynamic linker uses this to implement a stack canary.   
+
+# **How we get them?**
+1. we can discover the auxiliary vector that was supplied to an executable by setting the LD_SHOW_AUXV environment variable when launching an application
+2. The auxiliary vector of each process on the system is also visible via a corresponding /proc/PID/auxv file.  
+3. library function  
+    #include <sys/auxv.h>
+    unsigned long int getauxval(unsigned long int type);
