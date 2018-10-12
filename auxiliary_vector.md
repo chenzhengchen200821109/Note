@@ -19,5 +19,5 @@ auxiliary vector由内核的加载器在加载可执行文件时构建，构建�
 1. we can discover the auxiliary vector that was supplied to an executable by setting the LD_SHOW_AUXV environment variable when launching an application
 2. The auxiliary vector of each process on the system is also visible via a corresponding /proc/PID/auxv file.  
 3. library function  
-    #include <sys/auxv.h>
+    #include <sys/auxv.h>  
     unsigned long int getauxval(unsigned long int type);
