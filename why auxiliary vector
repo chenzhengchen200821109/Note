@@ -3,4 +3,4 @@ auxiliary vector是一种在内核态和用户态交换信息的机制。
 
 #Who construct auxiliary vector and where is it？
 auxiliary vector由内核的加载器在加载可执行文件时构建，构建后位于进程地址空间的特定位置（environ指针变量之上）  
-！[auxvec]（https://github.com/chenzhengchen200821109/Note/blob/master/auxvec.png）
+![auxvec](https://github.com/chenzhengchen200821109/Note/blob/master/auxvec.png)
