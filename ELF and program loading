@@ -1,4 +1,4 @@
-# Program Loading  
+#Program Loading  
 
 File Offset   Executable File    Virtual Address
           0  ---------------------
@@ -18,7 +18,7 @@ File Offset   Executable File    Virtual Address
              |                   |
              ---------------------  
              
-# Program header segments  
+#Program header segments  
 
   | Member    | Text     | Data     |
   |-----------|----------|----------|
