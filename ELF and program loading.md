@@ -1,7 +1,7 @@
 # Program Loading  
-
-File Offset    Executable File    Virtual Address  
           
+File Offset    Executable File     Virtual Address
+             ---------------------
            0 |    ELF header     |
              |-------------------|
              |                   | ---> Program header table
@@ -15,7 +15,8 @@ File Offset    Executable File    Virtual Address
              |    0x4e00 bytes   |
      0x30d00 |-------------------| 0x8079cff
              | Other information |
-             |                   |  
+             |                   |
+             ---------------------
              
 # Program header segments  
 
