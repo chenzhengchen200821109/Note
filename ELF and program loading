@@ -19,6 +19,7 @@ File Offset   Executable File    Virtual Address
              ---------------------  
              
 # Program header segments  
+
   | Member    | Text     | Data     |
   |-----------|----------|----------|
   | p_type    | PT_LOAD  | PT_LOAD  |
