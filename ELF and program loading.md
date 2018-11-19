@@ -1,6 +1,7 @@
 # Program Loading  
           
-File Offset    Executable File     Virtual Address
+File Offset    Executable File     Virtual Address  
+
              ---------------------
            0 |    ELF header     |
              |-------------------|
