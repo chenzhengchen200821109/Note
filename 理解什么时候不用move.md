@@ -96,7 +96,11 @@ Copy constructor called
 
 
 
-
+# -Wredundant-move 
+***USE IT***  
+Fortunately, the compiler is able to recognize the contexts where a call to std::move  
+would either prevent elision of a move or a copy - or would actually not make a difference 
+and warns appropriately.
 
 # 参考
 [1]: http://www.thbecker.net/articles/rvalue_references/section_01.html	"C++ Rvalue References Explained"
