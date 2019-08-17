@@ -19,7 +19,7 @@ gcc -o simple simple.c
 
 ## What's in the executable?
 To see what's in the executable, let's use a tool "objdump"   
-![Output](/home/chenzheng/Documents/Note/main/objdump1.png) 
+![objdump1](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump1.png) 
 The output gives us some critical information about the executable.  
  First of all, the file is "ELF32" format. Second of all, the start address is  
  "0x080482b0"   
@@ -37,16 +37,16 @@ typedef struct
 	Elf32_Half	e_type;			        /* Object file type */
 	Elf32_Half	e_machine;		        /* Architecture */
 	Elf32_Word	e_version;		        /* Object file version */
-	Elf32_Addr	e_entry;		       		/* Entry point virtual address */
-	Elf32_Off	e_phoff;				 	/* Program header table file offset */
-	Elf32_Off	e_shoff;					/* Section header table file offset */
+	Elf32_Addr	e_entry;		       	/* Entry point virtual address */
+	Elf32_Off	e_phoff;				/* Program header table file offset */
+	Elf32_Off	e_shoff;				/* Section header table file offset */
 	Elf32_Word	e_flags;				/* Processor-specific flags */
-	Elf32_Half	e_ehsize;			/* ELF header size in bytes */
+	Elf32_Half	e_ehsize;			   	/* ELF header size in bytes */
 	Elf32_Half	e_phentsize;			/* Program header table entry size */
-	Elf32_Half	e_phnum;			/* Program header table entry count */
+	Elf32_Half	e_phnum;				/* Program header table entry count */
 	Elf32_Half	e_shentsize;			/* Section header table entry size */
-	Elf32_Half	e_shnum;			/* Section header table entry count */
-	Elf32_Half	e_shstrndx;			/* Section header string table index */
+	Elf32_Half	e_shnum;				/* Section header table entry count */
+	Elf32_Half	e_shstrndx;				/* Section header string table index */
 } Elf32_Ehdr;
 ```
 
@@ -60,7 +60,7 @@ objdump  --disassemble simple
 ```
 The output is a little bit long so I'll not paste all the output from objdump. Our intention   
 is see what's at address 0x080482b0. Here is the output.  
-
+![objdump2](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump2.png) 
 Looks like some kind of starting routine called "_start" is at the starting  
 address. What it does is clear a register, push some values into stack  
 and call a function. According to this instruction, the stack frame should  
@@ -98,7 +98,7 @@ Here "linked dynamically" means the actual linking process happens at runtime. O
 ```
 ldd simple
 ``` 
-
+![objdump3](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump3.ng) 
 You can see all the libraries dynamically linked with simple. And all the dynamically linked data and functions have "dynamic relocation entry". 
 The concept is roughly like this.
 1. We don't know actual address of a dynamic symbol at link time. We can know the actual  
@@ -109,8 +109,8 @@ memory location will be filled with actual address of the symbol at runtime by l
 kind of pointer operation. In our case, at address 80482bc, there is just a simple jump instruction.  
 And the jump location is stored at address 0x8049548 by loader during runtime.  
 We can see all dynamic link entries with objdump command.  
-
-Here address 0x8049548 is called "jump slot", which perfectly makes sense. And according   
+![objdump4](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump4.png) 
+Here address 0x8049620 is called "jump slot", which perfectly makes sense. And according   
 to the table, actually we want to call __libc_start_main.  
 
 # What's __libc_start_main?
@@ -161,9 +161,11 @@ When we execute a program by entering a name on shell, this is what happens on L
 2. The kernel system call handler gets control and start handling the system call. In kernel code,  
 the handler is "sys_execve". On x86, the user-mode application passes all required parameters   
 to kernel with the following registers.  
+```
         ebx : pointer to program name string
         ecx : argv array pointer
         edx : environment variable array pointer. 
+```
 3. The generic execve kernel system call handler, which is do_execve, is called. What it does is  
 set up a data structure and copy some data from user space to kernel space and finally calls  
 search_binary_handler(). Linux can support more than one executable file format such as a.out  
@@ -182,7 +184,7 @@ process execution rolling.
 
 When the _start assembly instruction gets control of execution, the stack frame looks like this.  
 ```
-Stack Top        ---------------------
+Stack Top               ---------------------
                             argc
                         ---------------------
                             argv pointer
@@ -193,10 +195,10 @@ Stack Top        ---------------------
 
 And the assembly instructions gets all information from stack by
 ```
-pop %esi 		        <--- get argc
+pop %esi 		 	<--- get argc
 move %esp, %ecx		<--- get argv
-			                       actually the argv address is the same as the current
-			                       stack pointer.
+			            actually the argv address is the same as the current
+			            stack pointer.
 ```
 
 # And now we are all set to start executing.
