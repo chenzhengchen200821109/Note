@@ -19,7 +19,7 @@ gcc -o simple simple.c
 
 ## What's in the executable?
 To see what's in the executable, let's use a tool "objdump"   
-![](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump1.png) 
+![](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump1.png)  
 The output gives us some critical information about the executable.  
  First of all, the file is "ELF32" format. Second of all, the start address is  
  "0x080482b0"   
@@ -60,7 +60,7 @@ objdump  --disassemble simple
 ```
 The output is a little bit long so I'll not paste all the output from objdump. Our intention   
 is see what's at address 0x080482b0. Here is the output.  
-![objdump2](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump2.png) 
+![objdump2](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump2.png)  
 Looks like some kind of starting routine called "_start" is at the starting  
 address. What it does is clear a register, push some values into stack  
 and call a function. According to this instruction, the stack frame should  
@@ -98,7 +98,7 @@ Here "linked dynamically" means the actual linking process happens at runtime. O
 ```
 ldd simple
 ``` 
-![objdump3](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump3.ng) 
+![objdump3](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump3.png)  
 You can see all the libraries dynamically linked with simple. And all the dynamically linked data and functions have "dynamic relocation entry". 
 The concept is roughly like this.
 1. We don't know actual address of a dynamic symbol at link time. We can know the actual  
@@ -109,7 +109,7 @@ memory location will be filled with actual address of the symbol at runtime by l
 kind of pointer operation. In our case, at address 80482bc, there is just a simple jump instruction.  
 And the jump location is stored at address 0x8049548 by loader during runtime.  
 We can see all dynamic link entries with objdump command.  
-![objdump4](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump4.png) 
+![objdump4](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump4.png)  
 Here address 0x8049620 is called "jump slot", which perfectly makes sense. And according   
 to the table, actually we want to call __libc_start_main.  
 
