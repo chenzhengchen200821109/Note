@@ -19,7 +19,7 @@ gcc -o simple simple.c
 
 ## What's in the executable?
 To see what's in the executable, let's use a tool "objdump"   
-[objdump1](https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump1.png) 
+!(https://github.com/chenzhengchen200821109/Note/blob/master/main/objdump1.png) 
 The output gives us some critical information about the executable.  
  First of all, the file is "ELF32" format. Second of all, the start address is  
  "0x080482b0"   
